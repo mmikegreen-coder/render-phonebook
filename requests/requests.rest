@@ -1,0 +1,35 @@
+GET http://localhost:3001/api/persons/
+
+###
+GET http://localhost:3001/api/info/
+
+###
+GET http://localhost:3001/api/persons/3
+
+###
+DELETE http://localhost:3001/api/persons/4
+
+###
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+    "name": "Mike Green",
+    "number": "052-5933269"
+}
+
+###
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+    "name": "Mike Green"
+}
+
+###
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+    "number": "052-5933269"
+}
