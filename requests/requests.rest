@@ -4,7 +4,10 @@ GET http://localhost:3001/api/persons/
 GET http://localhost:3001/api/info/
 
 ###
-GET http://localhost:3001/api/persons/6936dba9934b8c1c3ce8ead2
+GET http://localhost:3001/api/persons/693af704309bef14f24d89a6
+
+###
+GET http://localhost:3001/api/persons/badlyformattedid
 
 ###
 DELETE http://localhost:3001/api/persons/4
@@ -27,7 +30,43 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:3001/api/persons/69383199520752e64903ba4c
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+    "name": "Arto Hellas",
+    "number": "040-123456"
+}
+
+###
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+    "name": "Ada Lovelace",
+    "number": "39-44-5323523"
+}
+
+###
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{ 
+    "name": "Dan Abramov", 
+    "number": "12-43-234345"
+}
+
+###
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+    "name": "Mary Poppendieck", 
+    "number": "39-23-6423122"
+}
+
+###
+PUT http://localhost:3001/api/persons/693af704309bef14f24d89a6
 Content-Type: application/json
 
 {
