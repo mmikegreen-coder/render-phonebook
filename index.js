@@ -5,9 +5,9 @@ const Person = require('./models/person')
 
 const app = express()
 
-morgan.token('body', (req, res) => {
-  return JSON.stringify(req.body);
-});
+morgan.token('body', (req) => {
+  return JSON.stringify(req.body)
+})
 
 app.use(express.static('dist'))
 app.use(express.json())
@@ -47,59 +47,59 @@ app.get('/api/persons/:id', (request, response, next) => {
 
 app.post('/api/persons', (request, response, next) => {
   const body = request.body
-  console.log(body);
-  
+  console.log(body)
+
   if (!body.name) {
-    return response.status(400).json({ 
-      error: 'name missing' 
+    return response.status(400).json({
+      error: 'name missing'
     })
   }
 
   if (!body.number) {
-    return response.status(400).json({ 
-      error: 'number missing' 
+    return response.status(400).json({
+      error: 'number missing'
     })
   }
 
-  Person.find({name: body.name})
+  Person.find({ name: body.name })
     .then(peopleArray => {
       if (peopleArray.length === 0) {
         const newPerson = new Person({
           name: body.name,
           number: body.number,
         })
-  
+
         newPerson.save()
-        .then(savedPerson => {
-          console.log(savedPerson);    
-          response.json(savedPerson)
-        })
-        .catch(error => next(error))
+          .then(savedPerson => {
+            console.log(savedPerson)
+            response.json(savedPerson)
+          })
+          .catch(error => next(error))
       } else {
         return response.status(400).json({
-          error: 'name must be unique' 
+          error: 'name must be unique'
         })
-      }    
+      }
     })
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
-  console.log(request.params.id.toString(), request.params.body);
-  
+  console.log(request.params.id.toString(), request.params.body)
+
   Person.findById(request.params.id.toString())
     .then(existingPerson => {
       if (!existingPerson) {
-        console.log('put, not in db', request.body);        
+        console.log('put, not in db', request.body)
         return response.status(404).end()
       }
       existingPerson.number = request.body.number
       existingPerson.save()
         .then(savedPerson => {
-          console.log('updated', savedPerson);    
+          console.log('updated', savedPerson)
           response.json(savedPerson)
         })
         .catch(error => {
-          console.log('update failed');          
+          console.log('update failed')
           next(error)
         })
     })
@@ -108,10 +108,10 @@ app.put('/api/persons/:id', (request, response, next) => {
 
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndDelete(request.params.id.toString())
-  .then(deletedPerson => {
-    response.status(204).end()
-  })
-  .catch(error => next(error))
+    .then(() => {
+      response.status(204).end()
+    })
+    .catch(error => next(error))
 })
 
 const unknownEndpoint = (request, response) => {
